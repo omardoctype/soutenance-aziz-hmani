@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Manrope:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-script: "Great Vibes", cursive;
+  --font-sans: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+
+  --color-navy-900: #102846;
+  --color-navy-800: #163761;
+  --color-mist-50: #f8fafc;
+  --color-mist-100: #eef2f7;
+  --color-gold-500: #c6a769;
+  --color-gold-600: #ac8a4a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  overflow-x: clip;
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  color: #102846;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(198, 167, 105, 0.24), transparent 32%),
+    radial-gradient(circle at 90% 15%, rgba(16, 40, 70, 0.14), transparent 30%),
+    #f8fafc;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  overflow-x: clip;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  color: #ffffff;
+  background-color: #163761;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
