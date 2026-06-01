@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Images, KeyRound, LoaderCircle, RefreshCw, Upload, X } from 'lucide-react'
+import { Camera, Images, KeyRound, LoaderCircle, RefreshCw, Upload, X } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { MAX_VISITOR_PHOTOS, useSharedMemories } from '../hooks/useSharedMemories'
 import type { Memory } from '../types/memory'
@@ -45,7 +45,8 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
     clearMessages,
   } = useSharedMemories(visitorName)
 
-  const inputRef = useRef<HTMLInputElement | null>(null)
+  const galleryInputRef = useRef<HTMLInputElement | null>(null)
+  const cameraInputRef = useRef<HTMLInputElement | null>(null)
   const [isDragging, setIsDragging] = useState(false)
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [memoryPendingDelete, setMemoryPendingDelete] = useState<Memory | null>(
@@ -72,18 +73,29 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
         ? `Vous avez partagé ${visitorUploadCount}/${MAX_VISITOR_PHOTOS} photos.`
         : 'Vous avez déjà partagé 5 photos. Merci pour vos souvenirs.'
 
-  const handleFilesSelected: React.ChangeEventHandler<HTMLInputElement> = async (
-    event,
-  ) => {
-    const files = event.target.files
+  const handleGalleryFilesSelected: React.ChangeEventHandler<HTMLInputElement> =
+    async (event) => {
+      const files = event.target.files
 
-    if (!files || files.length === 0) {
-      return
+      if (!files || files.length === 0) {
+        return
+      }
+
+      await uploadFiles(files)
+      event.target.value = ''
     }
 
-    await uploadFiles(files)
-    event.target.value = ''
-  }
+  const handleCameraFileSelected: React.ChangeEventHandler<HTMLInputElement> =
+    async (event) => {
+      const files = event.target.files
+
+      if (!files || files.length === 0) {
+        return
+      }
+
+      await uploadFiles(files)
+      event.target.value = ''
+    }
 
   const handleDrop: React.DragEventHandler<HTMLDivElement> = async (event) => {
     event.preventDefault()
@@ -207,11 +219,20 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
           >
             <div className="min-w-0 space-y-4">
               <input
-                ref={inputRef}
+                ref={galleryInputRef}
                 type="file"
                 multiple
                 accept="image/*"
-                onChange={(event) => void handleFilesSelected(event)}
+                onChange={(event) => void handleGalleryFilesSelected(event)}
+                className="hidden"
+              />
+
+              <input
+                ref={cameraInputRef}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                onChange={(event) => void handleCameraFileSelected(event)}
                 className="hidden"
               />
 
@@ -249,15 +270,30 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
                     Partagez vos photos
                   </p>
 
-                  <div className="mt-6">
+                  <p className="mt-3 text-xs leading-relaxed text-slate-600">
+                    Ajoutez une photo depuis votre galerie ou prenez une photo
+                    directement.
+                  </p>
+
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                     <button
                       type="button"
-                      onClick={() => openFilePicker(inputRef.current)}
+                      onClick={() => openFilePicker(galleryInputRef.current)}
                       disabled={isUploadDisabled}
-                      className="inline-flex min-h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-full bg-navy-900 px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_18px_34px_rgba(16,40,70,0.2)] transition-colors hover:bg-navy-800 disabled:cursor-not-allowed disabled:bg-slate-400 sm:w-auto"
+                      className="inline-flex min-h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-full bg-navy-900 px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_18px_34px_rgba(16,40,70,0.2)] transition-colors hover:bg-navy-800 disabled:cursor-not-allowed disabled:bg-slate-400"
                     >
                       <Upload className="h-4 w-4" />
-                      {isUploading ? 'UPLOADING...' : 'SÉLECTIONNER DES PHOTOS'}
+                      {isUploading ? 'UPLOADING...' : 'Choisir depuis la galerie'}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => openFilePicker(cameraInputRef.current)}
+                      disabled={isUploadDisabled}
+                      className="inline-flex min-h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-full border border-navy-900/25 bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-navy-900 shadow-[0_12px_24px_rgba(16,40,70,0.08)] transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400"
+                    >
+                      <Camera className="h-4 w-4" />
+                      Prendre une photo
                     </button>
                   </div>
 
