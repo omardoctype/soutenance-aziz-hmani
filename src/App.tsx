@@ -16,16 +16,10 @@ const NAV_ITEMS: NavItem[] = [
 ]
 
 function App() {
-  const { visitorName, hasVisitor, setVisitorName, clearVisitorName } =
-    useVisitor()
+  const { visitorName, hasVisitor, setVisitorName } = useVisitor()
 
   if (!hasVisitor) {
-    return (
-      <VisitorGate
-        visitorName={visitorName}
-        onSubmitName={setVisitorName}
-      />
-    )
+    return <VisitorGate onSubmitName={setVisitorName} />
   }
 
   return (
@@ -39,14 +33,10 @@ function App() {
       <Navbar
         items={NAV_ITEMS}
         visitorName={visitorName}
-        onChangeName={clearVisitorName}
       />
 
       <main className="mx-auto flex w-full max-w-[1180px] flex-col gap-6 px-3 pb-10 pt-4 sm:gap-8 sm:px-5 sm:pt-6 md:pb-14 md:pt-10 lg:px-8">
-        <ProfileHeader
-          visitorName={visitorName}
-          onChangeName={clearVisitorName}
-        />
+        <ProfileHeader visitorName={visitorName} />
 
         <Routes>
           <Route
@@ -68,12 +58,7 @@ function App() {
           />
           <Route
             path="/souvenirs"
-            element={
-              <SouvenirsPage
-                visitorName={visitorName}
-                onChangeVisitorName={clearVisitorName}
-              />
-            }
+            element={<SouvenirsPage visitorName={visitorName} />}
           />
           <Route
             path="/home"

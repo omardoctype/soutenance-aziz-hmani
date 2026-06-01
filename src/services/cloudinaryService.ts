@@ -7,18 +7,12 @@ import {
 
 const MEMORY_FOLDER = 'soutenance-aziz-hmani/memories'
 const IMAGE_MAX_BYTES = 10 * 1024 * 1024
-const VIDEO_MAX_BYTES = 50 * 1024 * 1024
 
 const isImage = (fileType: string) => fileType.startsWith('image/')
-const isVideo = (fileType: string) => fileType.startsWith('video/')
 
 const getFileKind = (fileType: string): MemoryResourceType | null => {
   if (isImage(fileType)) {
     return 'image'
-  }
-
-  if (isVideo(fileType)) {
-    return 'video'
   }
 
   return null
@@ -28,17 +22,11 @@ const ensureUploadConstraints = (file: File) => {
   const fileKind = getFileKind(file.type)
 
   if (!fileKind) {
-    throw new Error(
-      'Invalid file type. Only image/* and video/* files are allowed.',
-    )
+    throw new Error('Seules les photos sont acceptées.')
   }
 
-  if (fileKind === 'image' && file.size > IMAGE_MAX_BYTES) {
+  if (file.size > IMAGE_MAX_BYTES) {
     throw new Error('Image file is too large. Maximum allowed size is 10MB.')
-  }
-
-  if (fileKind === 'video' && file.size > VIDEO_MAX_BYTES) {
-    throw new Error('Video file is too large. Maximum allowed size is 50MB.')
   }
 }
 

@@ -2,22 +2,14 @@ import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { useState } from 'react'
 import type { FormEvent } from 'react'
-import { ProfileHeader } from './ProfileHeader'
 
 interface VisitorGateProps {
-  visitorName: string
   onSubmitName: (name: string) => void
 }
 
-export const VisitorGate = ({ visitorName, onSubmitName }: VisitorGateProps) => {
+export const VisitorGate = ({ onSubmitName }: VisitorGateProps) => {
   const [name, setName] = useState('')
   const normalizedDraftName = name.trim()
-  const normalizedVisitorName = visitorName.trim()
-  const headerName = normalizedDraftName || normalizedVisitorName || 'Invite'
-  const headerSubtitle =
-    normalizedDraftName || normalizedVisitorName
-      ? `Bienvenue, ${normalizedDraftName || normalizedVisitorName}`
-      : 'Veuillez entrer votre nom'
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -38,22 +30,6 @@ export const VisitorGate = ({ visitorName, onSubmitName }: VisitorGateProps) => 
         <div className="absolute bottom-[-8rem] right-[-8rem] h-64 w-64 rounded-full bg-navy-900/12 blur-3xl" />
       </div>
 
-      <div className="w-full max-w-md">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mb-4 w-full max-w-[22rem]"
-        >
-          <ProfileHeader
-            visitorName={headerName}
-            subtitle={headerSubtitle}
-            showChangeNameButton={false}
-            mobileOnly={false}
-            className="rounded-2xl bg-white/95"
-          />
-        </motion.div>
-
       <motion.section
         initial={{ opacity: 0, y: 14, scale: 0.985 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -61,7 +37,7 @@ export const VisitorGate = ({ visitorName, onSubmitName }: VisitorGateProps) => 
         className="w-[calc(100%-12px)] max-w-md rounded-[1.9rem] border border-slate-200/75 bg-white/96 p-5 shadow-[0_28px_70px_rgba(7,27,58,0.15)] sm:p-6"
       >
         <h1 className="font-display text-[clamp(1.7rem,7vw,2.4rem)] leading-tight text-navy-900">
-          Bienvenue a la soutenance de Aziz Hmani
+          Bienvenue à la soutenance de Aziz Hmani
         </h1>
 
         <form
@@ -95,7 +71,6 @@ export const VisitorGate = ({ visitorName, onSubmitName }: VisitorGateProps) => 
           </button>
         </form>
       </motion.section>
-      </div>
     </div>
   )
 }

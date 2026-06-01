@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { Images, KeyRound, LoaderCircle, RefreshCw, Upload, X } from 'lucide-react'
 import { useRef, useState } from 'react'
-import { useSharedMemories } from '../hooks/useSharedMemories'
+import { MAX_VISITOR_PHOTOS, useSharedMemories } from '../hooks/useSharedMemories'
 import type { Memory } from '../types/memory'
 import {
   getMemoryAdminConfigErrorMessage,
@@ -27,15 +27,12 @@ const openFilePicker = (input: HTMLInputElement | null) => {
 
 interface MemorySectionProps {
   visitorName: string | null
-  onChangeVisitorName: () => void
 }
 
-export const MemorySection = ({
-  visitorName,
-  onChangeVisitorName: _onChangeVisitorName,
-}: MemorySectionProps) => {
+export const MemorySection = ({ visitorName }: MemorySectionProps) => {
   const {
     memories,
+    visitorUploadCount,
     isLoading,
     isUploading,
     isRealtimeActive,
@@ -46,7 +43,7 @@ export const MemorySection = ({
     uploadFiles,
     deleteMemory,
     clearMessages,
-  } = useSharedMemories()
+  } = useSharedMemories(visitorName)
 
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -61,6 +58,19 @@ export const MemorySection = ({
   const normalizedVisitorName = visitorName?.trim() ?? ''
   const configMessage = getSharedMemoryConfigErrorMessage()
   const adminConfigMessage = getMemoryAdminConfigErrorMessage()
+  const canUploadMore = visitorUploadCount < MAX_VISITOR_PHOTOS
+  const isUploadDisabled =
+    isUploading ||
+    normalizedVisitorName.length === 0 ||
+    !hasSharedMemoryConfig ||
+    !canUploadMore
+
+  const uploadStatusMessage =
+    visitorUploadCount === 0
+      ? `Vous pouvez partager jusqu’à ${MAX_VISITOR_PHOTOS} photos.`
+      : visitorUploadCount < MAX_VISITOR_PHOTOS
+        ? `Vous avez partagé ${visitorUploadCount}/${MAX_VISITOR_PHOTOS} photos.`
+        : 'Vous avez déjà partagé 5 photos. Merci pour vos souvenirs.'
 
   const handleFilesSelected: React.ChangeEventHandler<HTMLInputElement> = async (
     event,
@@ -71,7 +81,7 @@ export const MemorySection = ({
       return
     }
 
-    await uploadFiles(files, normalizedVisitorName)
+    await uploadFiles(files)
     event.target.value = ''
   }
 
@@ -83,7 +93,7 @@ export const MemorySection = ({
       return
     }
 
-    await uploadFiles(event.dataTransfer.files, normalizedVisitorName)
+    await uploadFiles(event.dataTransfer.files)
   }
 
   const handleDragOver: React.DragEventHandler<HTMLDivElement> = (event) => {
@@ -175,12 +185,7 @@ export const MemorySection = ({
               </h2>
 
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
-                Upload your favorite photos , and share your memories
-                with everyone.
-              </p>
-
-              <p className="mt-3 text-sm text-slate-500">
-                Les photos seront visibles par tous les invites.
+                Upload your favorite photos and share your memories with everyone.
               </p>
             </div>
 
@@ -205,7 +210,7 @@ export const MemorySection = ({
                 ref={inputRef}
                 type="file"
                 multiple
-                accept="image/*,video/*"
+                accept="image/*"
                 onChange={(event) => void handleFilesSelected(event)}
                 className="hidden"
               />
@@ -223,15 +228,16 @@ export const MemorySection = ({
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.82),transparent_52%)]" />
 
                 <div className="relative z-10">
-                  
+                  <p className="text-sm font-semibold text-navy-900">
+                    Vous partagez en tant que :{' '}
+                    <span className="text-gold-600">
+                      {normalizedVisitorName || 'Invite'}
+                    </span>
+                  </p>
 
-                  {normalizedVisitorName.length === 0 && (
-                    <p className="mt-3 rounded-xl border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-800">
-                      Entrez votre nom pour partager un souvenir.
-                    </p>
-                  )}
+                  <p className="mt-2 text-xs text-slate-600">{uploadStatusMessage}</p>
 
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-navy-900 text-white shadow-[0_16px_30px_rgba(16,40,70,0.22)]">
+                  <div className="mt-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-navy-900 text-white shadow-[0_16px_30px_rgba(16,40,70,0.22)]">
                     {isUploading ? (
                       <LoaderCircle className="h-6 w-6 animate-spin" />
                     ) : (
@@ -240,29 +246,19 @@ export const MemorySection = ({
                   </div>
 
                   <p className="mt-5 font-display text-2xl text-navy-900 sm:text-3xl">
-                    Share Your Special Moments
-                  </p>
-                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-slate-600">
-                    Upload your favorite photos , and share your
-                    memories with everyone.
+                    Partagez vos photos
                   </p>
 
-                  <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                  <div className="mt-6">
                     <button
                       type="button"
                       onClick={() => openFilePicker(inputRef.current)}
-                      disabled={
-                        isUploading ||
-                        normalizedVisitorName.length === 0 ||
-                        !hasSharedMemoryConfig
-                      }
+                      disabled={isUploadDisabled}
                       className="inline-flex min-h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-full bg-navy-900 px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_18px_34px_rgba(16,40,70,0.2)] transition-colors hover:bg-navy-800 disabled:cursor-not-allowed disabled:bg-slate-400 sm:w-auto"
                     >
                       <Upload className="h-4 w-4" />
-                      {isUploading ? 'UPLOADING...' : 'SELECT PHOTOS & VIDEOS'}
+                      {isUploading ? 'UPLOADING...' : 'SÉLECTIONNER DES PHOTOS'}
                     </button>
-
-                  
                   </div>
 
                   {uploadProgress !== null && (
@@ -311,8 +307,6 @@ export const MemorySection = ({
                   le bouton Actualiser pour recharger la galerie.
                 </div>
               )}
-
-              
             </div>
 
             <div className="min-w-0 space-y-4">
@@ -334,8 +328,7 @@ export const MemorySection = ({
                     No memories yet
                   </p>
                   <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-600">
-                    Be the first guest to share a special photo or video with
-                    everyone.
+                    Be the first guest to share a special photo.
                   </p>
                 </div>
               ) : (

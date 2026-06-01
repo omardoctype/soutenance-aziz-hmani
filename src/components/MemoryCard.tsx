@@ -1,4 +1,4 @@
-import { LoaderCircle, Play, Trash2 } from 'lucide-react'
+import { LoaderCircle, Trash2 } from 'lucide-react'
 import type { Memory } from '../types/memory'
 import { formatFileSize, formatMemoryDate } from '../utils/format'
 
@@ -45,11 +45,6 @@ export const MemoryCard = ({
               className="h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,13,20,0.08),rgba(8,13,20,0.5))]" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/92 text-navy-900 shadow-[0_12px_24px_rgba(0,0,0,0.22)]">
-                <Play className="ml-0.5 h-5 w-5 fill-current" />
-              </div>
-            </div>
           </>
         ) : (
           <img

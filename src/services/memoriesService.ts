@@ -101,6 +101,35 @@ export const saveMemory = async (
   }
 }
 
+export const getUploaderMemoryCount = async (
+  uploaderName: string,
+): Promise<number> => {
+  if (!supabase) {
+    return 0
+  }
+
+  const normalizedUploaderName = uploaderName.trim()
+
+  if (normalizedUploaderName.length === 0) {
+    return 0
+  }
+
+  try {
+    const { count, error } = await supabase
+      .from(MEMORIES_TABLE)
+      .select('id', { count: 'exact', head: true })
+      .eq('uploader_name', normalizedUploaderName)
+
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    return count ?? 0
+  } catch (error) {
+    throw createServiceError('Unable to load uploader memories count.', error)
+  }
+}
+
 export const deleteMemory = async (memory: Memory): Promise<void> => {
   try {
     const client = getSupabaseOrThrow()

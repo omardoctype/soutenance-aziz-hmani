@@ -1,40 +1,37 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { uploadToCloudinary } from '../services/cloudinaryService'
 import {
   deleteMemory as deleteMemoryRecord,
   getMemories,
+  getUploaderMemoryCount,
   saveMemory,
   subscribeToMemories,
 } from '../services/memoriesService'
 import type { Memory } from '../types/memory'
 
 const IMAGE_MAX_BYTES = 10 * 1024 * 1024
-const VIDEO_MAX_BYTES = 50 * 1024 * 1024
+export const MAX_VISITOR_PHOTOS = 5
 
 const formatErrorMessage = (error: unknown) =>
   error instanceof Error && error.message.trim().length > 0
     ? error.message
-    : 'An unexpected error occurred.'
+    : 'Une erreur inattendue est survenue.'
 
 const toFilesArray = (files: FileList | File[]) =>
   Array.isArray(files) ? files : Array.from(files)
 
 const validateFilesBeforeUpload = (files: File[]) => {
   if (files.length === 0) {
-    return 'Please select at least one file.'
+    return 'Sélectionnez au moins une photo.'
   }
 
   for (const file of files) {
-    if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
-      return `Unsupported file type for "${file.name}". Only image/* and video/* files are allowed.`
+    if (!file.type.startsWith('image/')) {
+      return 'Seules les photos sont acceptées.'
     }
 
-    if (file.type.startsWith('image/') && file.size > IMAGE_MAX_BYTES) {
-      return `Image "${file.name}" exceeds the 10MB limit.`
-    }
-
-    if (file.type.startsWith('video/') && file.size > VIDEO_MAX_BYTES) {
-      return `Video "${file.name}" exceeds the 50MB limit.`
+    if (file.size > IMAGE_MAX_BYTES) {
+      return `La photo "${file.name}" dépasse la limite de 10MB.`
     }
   }
 
@@ -44,8 +41,14 @@ const validateFilesBeforeUpload = (files: File[]) => {
 const yieldToEventLoop = () =>
   new Promise<void>((resolve) => window.setTimeout(resolve, 0))
 
-export const useSharedMemories = () => {
+export const useSharedMemories = (visitorName: string | null) => {
+  const normalizedVisitorName = useMemo(
+    () => visitorName?.trim() ?? '',
+    [visitorName],
+  )
+
   const [memories, setMemories] = useState<Memory[]>([])
+  const [visitorUploadCount, setVisitorUploadCount] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const [isUploading, setIsUploading] = useState(false)
   const [isRealtimeActive, setIsRealtimeActive] = useState<boolean | null>(null)
@@ -60,6 +63,24 @@ export const useSharedMemories = () => {
     setSuccessMessage(null)
   }, [])
 
+  const refreshVisitorUploadCount = useCallback(async () => {
+    if (normalizedVisitorName.length === 0) {
+      if (isMountedRef.current) {
+        setVisitorUploadCount(0)
+      }
+
+      return 0
+    }
+
+    const count = await getUploaderMemoryCount(normalizedVisitorName)
+
+    if (isMountedRef.current) {
+      setVisitorUploadCount(count)
+    }
+
+    return count
+  }, [normalizedVisitorName])
+
   const loadMemories = useCallback(async () => {
     if (!isMountedRef.current) {
       return
@@ -69,13 +90,19 @@ export const useSharedMemories = () => {
     setError(null)
 
     try {
-      const rows = await getMemories()
+      const [rows, count] = await Promise.all([
+        getMemories(),
+        normalizedVisitorName.length > 0
+          ? getUploaderMemoryCount(normalizedVisitorName)
+          : Promise.resolve(0),
+      ])
 
       if (!isMountedRef.current) {
         return
       }
 
       setMemories(rows)
+      setVisitorUploadCount(count)
     } catch (loadError) {
       if (!isMountedRef.current) {
         return
@@ -87,24 +114,45 @@ export const useSharedMemories = () => {
         setIsLoading(false)
       }
     }
-  }, [])
+  }, [normalizedVisitorName])
 
   const uploadFiles = useCallback(
-    async (filesInput: FileList | File[], uploaderName: string | null) => {
+    async (filesInput: FileList | File[]) => {
       clearMessages()
 
-      const files = toFilesArray(filesInput)
-      const normalizedUploaderName = uploaderName?.trim() ?? ''
-
-      if (normalizedUploaderName.length === 0) {
+      if (normalizedVisitorName.length === 0) {
         setError('Entrez votre nom pour partager un souvenir.')
         return
       }
 
+      const files = toFilesArray(filesInput)
       const validationError = validateFilesBeforeUpload(files)
 
       if (validationError) {
         setError(validationError)
+        return
+      }
+
+      let currentCount = 0
+
+      try {
+        currentCount = await refreshVisitorUploadCount()
+      } catch (countError) {
+        setError(formatErrorMessage(countError))
+        return
+      }
+
+      if (currentCount >= MAX_VISITOR_PHOTOS) {
+        setError('Vous avez déjà partagé 5 photos. Merci pour vos souvenirs.')
+        return
+      }
+
+      const remainingUploads = MAX_VISITOR_PHOTOS - currentCount
+
+      if (files.length > remainingUploads) {
+        setError(
+          `Vous pouvez encore ajouter seulement ${remainingUploads} photo(s).`,
+        )
         return
       }
 
@@ -119,12 +167,10 @@ export const useSharedMemories = () => {
 
         try {
           const uploadResult = await uploadToCloudinary(file)
-          await saveMemory(uploadResult, normalizedUploaderName)
+          await saveMemory(uploadResult, normalizedVisitorName)
           uploadedCount += 1
         } catch (uploadError) {
-          failedUploads.push(
-            `"${file.name}": ${formatErrorMessage(uploadError)}`,
-          )
+          failedUploads.push(`"${file.name}": ${formatErrorMessage(uploadError)}`)
         } finally {
           if (isMountedRef.current) {
             const progress = Math.round(((index + 1) / files.length) * 100)
@@ -140,6 +186,7 @@ export const useSharedMemories = () => {
       }
 
       await loadMemories()
+      await refreshVisitorUploadCount()
 
       if (!isMountedRef.current) {
         return
@@ -148,24 +195,27 @@ export const useSharedMemories = () => {
       if (uploadedCount > 0 && failedUploads.length === 0) {
         setSuccessMessage(
           uploadedCount === 1
-            ? '1 memory uploaded successfully.'
-            : `${uploadedCount} memories uploaded successfully.`,
+            ? '1 photo partagee avec succes.'
+            : `${uploadedCount} photos partagees avec succes.`,
         )
       } else if (uploadedCount > 0 && failedUploads.length > 0) {
         setSuccessMessage(
-          `${uploadedCount} file${uploadedCount > 1 ? 's' : ''} uploaded successfully.`,
+          `${uploadedCount} photo(s) partagee(s) avec succes.`,
         )
-        setError(
-          `${failedUploads.length} upload(s) failed: ${failedUploads.join(' | ')}`,
-        )
+        setError(`${failedUploads.length} upload(s) en echec: ${failedUploads.join(' | ')}`)
       } else {
-        setError(`Upload failed: ${failedUploads.join(' | ')}`)
+        setError(`Echec de l'upload: ${failedUploads.join(' | ')}`)
       }
 
       setIsUploading(false)
       setUploadProgress(null)
     },
-    [clearMessages, loadMemories],
+    [
+      clearMessages,
+      loadMemories,
+      normalizedVisitorName,
+      refreshVisitorUploadCount,
+    ],
   )
 
   const deleteMemory = useCallback(
@@ -177,7 +227,7 @@ export const useSharedMemories = () => {
         await loadMemories()
 
         if (isMountedRef.current) {
-          setSuccessMessage('Memory deleted successfully.')
+          setSuccessMessage('Souvenir supprime avec succes.')
         }
 
         return true
@@ -237,6 +287,7 @@ export const useSharedMemories = () => {
 
   return {
     memories,
+    visitorUploadCount,
     isLoading,
     isUploading,
     error,
