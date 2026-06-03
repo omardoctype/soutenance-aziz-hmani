@@ -5,7 +5,7 @@ const cards = [
   {
     icon: CalendarDays,
     label: 'Date',
-    value: '2 Juin',
+    value: '3 Juin',
     accent: 'from-gold-500/16 to-white',
   },
   {

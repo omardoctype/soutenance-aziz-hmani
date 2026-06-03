@@ -38,7 +38,7 @@ export const HeroInvitation = ({ onExploreMemories }: HeroInvitationProps) => (
               Date
             </p>
             <p className="mt-1 text-sm font-semibold text-navy-900">
-              2 Juin
+              3 Juin
             </p>
           </div>
           <div className="rounded-2xl border border-slate-200 bg-mist-50/85 p-4">
