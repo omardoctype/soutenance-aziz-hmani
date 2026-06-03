@@ -66,7 +66,7 @@ export const MemoryLightbox = ({ memory, onClose }: MemoryLightboxProps) => {
           </button>
         </div>
 
-        <div className="relative max-h-[78vh] overflow-auto bg-black/35 p-2.5 sm:p-3">
+        <div className="relative max-h-[85vh] overflow-auto bg-black/35 p-2.5 sm:p-3">
           {isVideo ? (
             <div className="relative overflow-hidden rounded-xl border border-white/10 bg-black">
               <video
@@ -84,7 +84,7 @@ export const MemoryLightbox = ({ memory, onClose }: MemoryLightboxProps) => {
             <img
               src={memory.secure_url}
               alt={memory.original_filename ?? 'Souvenir partagé'}
-              className="mx-auto max-h-[70vh] w-auto max-w-full rounded-xl border border-white/10 bg-black object-contain"
+              className="mx-auto max-h-[85vh] w-auto max-w-[95vw] rounded-xl border border-white/10 bg-black object-contain"
             />
           )}
         </div>

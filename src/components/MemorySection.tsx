@@ -39,6 +39,7 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
     error,
     successMessage,
     uploadProgress,
+    uploadStageMessage,
     loadMemories,
     uploadFiles,
     deleteMemory,
@@ -296,6 +297,12 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
                       Prendre une photo
                     </button>
                   </div>
+
+                  {uploadStageMessage && (
+                    <p className="mt-4 rounded-2xl border border-gold-500/25 bg-gold-500/10 px-4 py-3 text-xs font-semibold text-navy-900">
+                      {uploadStageMessage}
+                    </p>
+                  )}
 
                   {uploadProgress !== null && (
                     <div className="mt-5">

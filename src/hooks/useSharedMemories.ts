@@ -8,8 +8,9 @@ import {
   subscribeToMemories,
 } from '../services/memoriesService'
 import type { Memory } from '../types/memory'
+import { compressImage } from '../utils/imageCompression'
 
-const IMAGE_MAX_BYTES = 10 * 1024 * 1024
+const ORIGINAL_IMAGE_MAX_BYTES = 15 * 1024 * 1024
 export const MAX_VISITOR_PHOTOS = 5
 
 const formatErrorMessage = (error: unknown) =>
@@ -30,8 +31,8 @@ const validateFilesBeforeUpload = (files: File[]) => {
       return 'Seules les photos sont acceptées.'
     }
 
-    if (file.size > IMAGE_MAX_BYTES) {
-      return `La photo "${file.name}" dépasse la limite de 10MB.`
+    if (file.size > ORIGINAL_IMAGE_MAX_BYTES) {
+      return 'La photo est trop lourde. Veuillez choisir une autre photo.'
     }
   }
 
@@ -55,12 +56,16 @@ export const useSharedMemories = (visitorName: string | null) => {
   const [error, setError] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [uploadProgress, setUploadProgress] = useState<number | null>(null)
+  const [uploadStageMessage, setUploadStageMessage] = useState<string | null>(
+    null,
+  )
 
   const isMountedRef = useRef(true)
 
   const clearMessages = useCallback(() => {
     setError(null)
     setSuccessMessage(null)
+    setUploadStageMessage(null)
   }, [])
 
   const refreshVisitorUploadCount = useCallback(async () => {
@@ -166,7 +171,10 @@ export const useSharedMemories = (visitorName: string | null) => {
         const file = files[index]
 
         try {
-          const uploadResult = await uploadToCloudinary(file)
+          setUploadStageMessage('Optimisation de la photo en cours...')
+          const compressedFile = await compressImage(file)
+          setUploadStageMessage('Envoi de la photo en cours...')
+          const uploadResult = await uploadToCloudinary(compressedFile)
           await saveMemory(uploadResult, normalizedVisitorName)
           uploadedCount += 1
         } catch (uploadError) {
@@ -195,12 +203,12 @@ export const useSharedMemories = (visitorName: string | null) => {
       if (uploadedCount > 0 && failedUploads.length === 0) {
         setSuccessMessage(
           uploadedCount === 1
-            ? '1 photo partagée avec succès.'
-            : `${uploadedCount} photos partagées avec succès.`,
+            ? 'Photo ajoutée avec succès.'
+            : `${uploadedCount} photos ajoutées avec succès.`,
         )
       } else if (uploadedCount > 0 && failedUploads.length > 0) {
         setSuccessMessage(
-          `${uploadedCount} photo(s) partagée(s) avec succès.`,
+          `${uploadedCount} photo(s) ajoutée(s) avec succès.`,
         )
         setError(`${failedUploads.length} envoi(s) en échec : ${failedUploads.join(' | ')}`)
       } else {
@@ -209,6 +217,7 @@ export const useSharedMemories = (visitorName: string | null) => {
 
       setIsUploading(false)
       setUploadProgress(null)
+      setUploadStageMessage(null)
     },
     [
       clearMessages,
@@ -293,6 +302,7 @@ export const useSharedMemories = (visitorName: string | null) => {
     error,
     successMessage,
     uploadProgress,
+    uploadStageMessage,
     isRealtimeActive,
     loadMemories,
     uploadFiles,

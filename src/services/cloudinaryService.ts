@@ -1,4 +1,4 @@
-import type { CloudinaryUploadResult, MemoryResourceType } from '../types/memory'
+import type { CloudinaryUploadResult } from '../types/memory'
 import {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_UPLOAD_PRESET,
@@ -6,27 +6,17 @@ import {
 } from '../utils/env'
 
 const MEMORY_FOLDER = 'soutenance-aziz-hmani/memories'
-const IMAGE_MAX_BYTES = 10 * 1024 * 1024
+const COMPRESSED_IMAGE_MAX_BYTES = 2 * 1024 * 1024
 
 const isImage = (fileType: string) => fileType.startsWith('image/')
 
-const getFileKind = (fileType: string): MemoryResourceType | null => {
-  if (isImage(fileType)) {
-    return 'image'
-  }
-
-  return null
-}
-
 const ensureUploadConstraints = (file: File) => {
-  const fileKind = getFileKind(file.type)
-
-  if (!fileKind) {
+  if (!isImage(file.type)) {
     throw new Error('Seules les photos sont acceptées.')
   }
 
-  if (file.size > IMAGE_MAX_BYTES) {
-    throw new Error('La photo est trop lourde. La limite maximale est de 10MB.')
+  if (file.size > COMPRESSED_IMAGE_MAX_BYTES) {
+    throw new Error('La photo est trop lourde. Veuillez choisir une autre photo.')
   }
 }
 
@@ -48,10 +38,9 @@ const toCloudinaryResult = (payload: unknown): CloudinaryUploadResult => {
     !data.public_id ||
     !data.url ||
     !data.secure_url ||
-    !data.resource_type ||
-    (data.resource_type !== 'image' && data.resource_type !== 'video')
+    data.resource_type !== 'image'
   ) {
-    throw new Error('Cloudinary response is invalid.')
+    throw new Error('La réponse Cloudinary est invalide.')
   }
 
   return {
