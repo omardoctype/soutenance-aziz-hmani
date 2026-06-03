@@ -21,7 +21,7 @@ export const DesktopTopNav = ({
   <header className="sticky top-0 z-50 hidden border-b border-slate-200/90 bg-white/85 backdrop-blur md:block">
     <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4 lg:px-8">
       <p className="font-display text-[1.7rem] tracking-[0.24em] text-navy-900">
-        AZIZ HMANI
+        AMIN FEHRI
       </p>
       <nav aria-label="Navigation principale">
         <ul className="flex items-center gap-2">

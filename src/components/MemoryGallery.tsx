@@ -18,14 +18,14 @@ export const MemoryGallery = ({
 }: MemoryGalleryProps) => (
   <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
     <div className="mb-4 flex items-center justify-between gap-3">
-      <h3 className="font-display text-2xl text-navy-900">Memoires Publiees</h3>
+      <h3 className="font-display text-2xl text-navy-900">Souvenirs publiés</h3>
       <button
         type="button"
         onClick={() => void onRetry()}
         className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-slate-600 transition-colors hover:bg-slate-100"
       >
         <RefreshCw className="h-3.5 w-3.5" />
-        Rafraichir
+        Actualiser
       </button>
     </div>
 
@@ -47,7 +47,7 @@ export const MemoryGallery = ({
     ) : memories.length === 0 ? (
       <div className="rounded-xl border border-dashed border-slate-300 bg-mist-50 p-7 text-center">
         <p className="text-sm text-slate-600">
-          Aucun souvenir pour le moment. Soyez le premier a publier.
+          Aucun souvenir pour le moment. Soyez le premier à publier.
         </p>
       </div>
     ) : (
@@ -72,7 +72,7 @@ export const MemoryGallery = ({
                 ) : (
                   <img
                     src={memory.secure_url}
-                    alt={memory.original_filename ?? 'Souvenir partage'}
+                    alt={memory.original_filename ?? 'Souvenir partagé'}
                     loading="lazy"
                     className="h-full w-full object-cover"
                   />
@@ -83,7 +83,7 @@ export const MemoryGallery = ({
                   ) : (
                     <ImageIcon className="h-3 w-3" />
                   )}
-                  {memory.resource_type}
+                  {memory.resource_type === 'video' ? 'Vidéo' : 'Photo'}
                 </span>
               </div>
 
@@ -93,11 +93,16 @@ export const MemoryGallery = ({
                 </p>
 
                 <p className="text-sm text-navy-900">
-                  {memory.original_filename ?? 'Souvenir partage'}
+                  {memory.original_filename ?? 'Souvenir partagé'}
                 </p>
 
                 <p className="text-xs text-slate-600">
-                  {memory.format ? memory.format.toUpperCase() : memory.resource_type} -{' '}
+                  {memory.format
+                    ? memory.format.toUpperCase()
+                    : memory.resource_type === 'video'
+                      ? 'Vidéo'
+                      : 'Photo'}{' '}
+                  -{' '}
                   {formatFileSize(memory.bytes ?? null)}
                 </p>
               </div>

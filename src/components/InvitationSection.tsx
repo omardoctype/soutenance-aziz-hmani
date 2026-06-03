@@ -23,12 +23,12 @@ export const InvitationSection = () => (
           </div>
 
           <h2 className="mt-4 font-display text-3xl leading-tight text-navy-900 sm:text-5xl">
-            Famille, amis, votre presence me ferait tres plaisir !
+            Famille, amis, votre présence me ferait très plaisir !
           </h2>
 
           <div className="mt-6 flex items-center justify-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-slate-500">
             <Trophy className="h-4 w-4 text-gold-600" />
-            Soutenance Aziz Hmani - ISSEP Sfax
+            Soutenance Amin Fehri - ISAMS Sfax
           </div>
         </motion.div>
       </div>

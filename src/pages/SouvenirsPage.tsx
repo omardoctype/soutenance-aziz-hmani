@@ -14,11 +14,11 @@ export const SouvenirsPage = ({ visitorName }: SouvenirsPageProps) => (
       </div>
 
       <p className="mt-4 font-display text-2xl leading-tight text-navy-900 sm:text-3xl">
-        Famille, amis, votre presence me ferait tres plaisir !
+        Famille, amis, votre présence me ferait très plaisir !
       </p>
 
       <p className="mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 sm:text-sm">
-        Soutenance Aziz Hmani - ISSEP Sfax
+        Soutenance Amin Fehri - ISAMS Sfax
       </p>
     </section>
 

@@ -23,13 +23,13 @@ export const Navbar = ({ items, visitorName }: NavbarProps) => (
         <div className="flex items-center gap-3">
           <img
             src={profileImage}
-            alt="Soutenance Aziz Hmani"
+            alt="Soutenance Amin Fehri"
             className="h-11 w-11 shrink-0 rounded-full border-2 border-gold-500/70 object-cover shadow-[0_8px_18px_rgba(16,40,70,0.16)]"
             loading="lazy"
           />
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-navy-900 lg:text-[0.95rem]">
-              Soutenance Aziz Hmani
+              Soutenance Amin Fehri
             </p>
             <p className="truncate text-xs text-slate-600">
               Bienvenue, {visitorName}

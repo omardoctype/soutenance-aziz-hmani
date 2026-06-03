@@ -32,7 +32,7 @@ export const MemoryUploadForm = ({
   const resetState = () => {
     setSelectedFile(null)
     setCaption('')
-    setSuccessMessage('Souvenir partage avec succes.')
+    setSuccessMessage('Souvenir partagé avec succès.')
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
@@ -51,19 +51,19 @@ export const MemoryUploadForm = ({
 
     if (!nextFile.type.startsWith('image/') && !nextFile.type.startsWith('video/')) {
       setSelectedFile(null)
-      setLocalError('Selectionnez uniquement une image ou une video.')
+      setLocalError('Sélectionnez uniquement une image ou une vidéo.')
       return
     }
 
     if (nextFile.type.startsWith('image/') && nextFile.size > IMAGE_MAX_SIZE) {
       setSelectedFile(null)
-      setLocalError('Le fichier image depasse 10 MB.')
+      setLocalError('Le fichier image dépasse 10 MB.')
       return
     }
 
     if (nextFile.type.startsWith('video/') && nextFile.size > VIDEO_MAX_SIZE) {
       setSelectedFile(null)
-      setLocalError('Le fichier video depasse 50 MB.')
+      setLocalError('Le fichier vidéo dépasse 50 MB.')
       return
     }
 
@@ -89,7 +89,7 @@ export const MemoryUploadForm = ({
       })
       resetState()
     } catch {
-      // Upload errors are surfaced by the hook.
+      // Les erreurs d'envoi sont affichées par le hook.
     }
   }
 
@@ -100,11 +100,11 @@ export const MemoryUploadForm = ({
     >
       <div className="mb-4 flex items-center gap-2">
         <Camera className="h-5 w-5 text-gold-600" />
-        <h3 className="font-display text-2xl text-navy-900">Ajouter Un Souvenir</h3>
+        <h3 className="font-display text-2xl text-navy-900">Ajouter un souvenir</h3>
       </div>
 
       <label className="mb-3 block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-        Photo ou video
+        Photo ou vidéo
       </label>
       <div className="rounded-xl border border-dashed border-slate-300 bg-white p-4">
         <input
@@ -116,7 +116,7 @@ export const MemoryUploadForm = ({
           className="block w-full text-sm text-slate-600 file:mr-3 file:rounded-full file:border-0 file:bg-navy-900 file:px-4 file:py-2 file:text-xs file:font-semibold file:uppercase file:tracking-[0.18em] file:text-white hover:file:bg-navy-800"
         />
         <p className="mt-2 text-xs text-slate-500">
-          Formats supportes: images (max 10 MB) et videos (max 50 MB).
+          Formats supportés : images (max 10 MB) et vidéos (max 50 MB).
         </p>
       </div>
 

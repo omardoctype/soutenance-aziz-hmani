@@ -57,11 +57,11 @@ export const getSharedMemoryConfigErrorMessage = () => {
   const missing = getMissingSharedMemoryEnvVars()
 
   if (missing.length > 0) {
-    return `Missing environment variables: ${missing.join(', ')}. Add them to .env.local to enable shared memories.`
+    return `Variables d'environnement manquantes : ${missing.join(', ')}. Ajoutez-les dans .env.local pour activer les souvenirs partagés.`
   }
 
   if (!isValidUrl(SUPABASE_URL)) {
-    return 'VITE_SUPABASE_URL must be a valid URL.'
+    return 'VITE_SUPABASE_URL doit être une URL valide.'
   }
 
   return null
@@ -69,7 +69,7 @@ export const getSharedMemoryConfigErrorMessage = () => {
 
 export const getMemoryAdminConfigErrorMessage = () => {
   if (!hasMemoryAdminCode) {
-    return 'VITE_MEMORY_ADMIN_CODE is missing. Add it to .env.local to enable protected deletion.'
+    return 'VITE_MEMORY_ADMIN_CODE est manquant. Ajoutez-le dans .env.local pour activer la suppression protégée.'
   }
 
   return null

@@ -16,9 +16,9 @@ export const MemoryCard = ({
   isDeleting = false,
 }: MemoryCardProps) => {
   const isVideo = memory.resource_type === 'video'
-  const typeLabel = isVideo ? 'Video' : 'Photo'
-  const name = memory.original_filename ?? 'Shared memory'
-  const uploaderName = memory.uploader_name?.trim() || 'invite'
+  const typeLabel = isVideo ? 'Vidéo' : 'Photo'
+  const name = memory.original_filename ?? 'Souvenir partagé'
+  const uploaderName = memory.uploader_name?.trim() || 'invité'
 
   return (
     <article
@@ -68,7 +68,7 @@ export const MemoryCard = ({
             onDelete(memory)
           }}
           disabled={isDeleting}
-          aria-label={`Delete ${name}`}
+          aria-label={`Supprimer ${name}`}
           className="absolute right-2 top-2 inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-rose-600 disabled:cursor-not-allowed disabled:bg-black/35"
         >
           {isDeleting ? (
@@ -79,7 +79,7 @@ export const MemoryCard = ({
         </button>
 
         <p className="pointer-events-none absolute bottom-2 left-2 right-2 truncate text-[0.66rem] font-medium text-white">
-          Partage par {uploaderName}
+          Partagé par {uploaderName}
         </p>
       </div>
 

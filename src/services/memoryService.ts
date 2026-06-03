@@ -4,7 +4,7 @@ import { supabase } from './supabaseClient'
 
 export const fetchMemories = async (): Promise<Memory[]> => {
   if (!supabase) {
-    throw new Error('Supabase configuration is missing.')
+    throw new Error('La configuration Supabase est manquante.')
   }
 
   const { data, error } = await supabase
@@ -23,7 +23,7 @@ export const uploadMemoryAsset = async (
   input: UploadMemoryInput,
 ): Promise<Memory> => {
   if (!supabase) {
-    throw new Error('Supabase configuration is missing.')
+    throw new Error('La configuration Supabase est manquante.')
   }
 
   const uploadResult = await uploadToCloudinary(input.file)

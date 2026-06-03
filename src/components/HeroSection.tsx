@@ -33,11 +33,11 @@ export const HeroSection = ({
           >
             <p className="mx-auto inline-flex max-w-full items-center gap-2 rounded-full border border-gold-500/35 bg-gold-500/10 px-4 py-2 text-[0.64rem] font-semibold uppercase tracking-[0.22em] text-gold-600">
               <GraduationCap className="h-4 w-4 shrink-0" />
-              <span className="truncate">ISSEP SFAX</span>
+              <span className="truncate">ISAMS SFAX</span>
             </p>
 
             <p className="mx-auto mt-4 max-w-[28rem] text-[0.68rem] font-semibold uppercase leading-relaxed tracking-[0.16em] text-slate-500 sm:text-[0.72rem]">
-              Institut Superieur du Sport et de l&apos;Education Physique
+              Institut Supérieur des Arts et Métiers de Sfax
             </p>
 
             <h1 className="mx-auto mt-4 max-w-full text-center font-display text-[clamp(2.2rem,10vw,4rem)] leading-[1.05] tracking-[clamp(0.04em,0.8vw,0.14em)] text-[#071B3A]">
@@ -45,7 +45,11 @@ export const HeroSection = ({
             </h1>
 
             <p className="mx-auto mt-4 font-script text-[clamp(2.2rem,10.4vw,4.2rem)] leading-[1] text-gold-600">
-              Aziz Hmani
+              Amin Fehri
+            </p>
+
+            <p className="mx-auto mt-4 inline-flex items-center justify-center rounded-full border border-gold-500/35 bg-white/80 px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-navy-900">
+              Projet de fin d&apos;études
             </p>
 
             <p className="mx-auto mt-5 max-w-[31rem] text-center text-[0.93rem] leading-relaxed text-slate-600 sm:text-[0.98rem] md:text-base">
@@ -58,7 +62,7 @@ export const HeroSection = ({
                 onClick={onViewDetails}
                 className="inline-flex min-h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-full bg-[#071B3A] px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(7,27,58,0.24)] transition-colors hover:bg-[#0B4EA2] md:flex-1"
               >
-                Voir les details
+                Voir les détails
                 <ArrowRight className="h-4 w-4 shrink-0" />
               </button>
 
@@ -82,7 +86,7 @@ export const HeroSection = ({
               <div className="overflow-hidden rounded-[1.5rem] border border-white/80 bg-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)]">
                 <img
                   src={posterImage}
-                  alt="Affiche officielle de la soutenance Aziz Hmani"
+                  alt="Affiche officielle de la soutenance Amin Fehri"
                   className="aspect-[10/16] w-full object-contain bg-[#f8fafc]"
                   loading="eager"
                 />

@@ -31,7 +31,7 @@ const createServiceError = (fallbackMessage: string, cause: unknown) => {
 const getSupabaseOrThrow = () => {
   if (!supabase) {
     throw new Error(
-      'Supabase is not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to .env.local.',
+      "Supabase n'est pas configuré. Ajoutez VITE_SUPABASE_URL et VITE_SUPABASE_ANON_KEY dans .env.local.",
     )
   }
 
@@ -55,7 +55,7 @@ export const getMemories = async (): Promise<Memory[]> => {
 
     return data ?? []
   } catch (error) {
-    throw createServiceError('Unable to load memories.', error)
+    throw createServiceError('Impossible de charger les souvenirs.', error)
   }
 }
 
@@ -69,7 +69,7 @@ export const saveMemory = async (
     const normalizedUploaderName = uploaderName.trim()
 
     if (normalizedUploaderName.length === 0) {
-      throw new Error('Uploader name is required before saving memories.')
+      throw new Error('Le nom du visiteur est requis avant de sauvegarder le souvenir.')
     }
 
     const payload: MemoryInsert = {
@@ -97,7 +97,7 @@ export const saveMemory = async (
 
     return data
   } catch (error) {
-    throw createServiceError('Unable to save memory metadata.', error)
+    throw createServiceError('Impossible de sauvegarder le souvenir.', error)
   }
 }
 
@@ -126,7 +126,7 @@ export const getUploaderMemoryCount = async (
 
     return count ?? 0
   } catch (error) {
-    throw createServiceError('Unable to load uploader memories count.', error)
+    throw createServiceError('Impossible de vérifier le nombre de photos partagées.', error)
   }
 }
 
@@ -145,7 +145,7 @@ export const deleteMemory = async (memory: Memory): Promise<void> => {
       throw new Error(error.message)
     }
   } catch (error) {
-    throw createServiceError('Unable to delete memory.', error)
+    throw createServiceError('Impossible de supprimer le souvenir.', error)
   }
 }
 

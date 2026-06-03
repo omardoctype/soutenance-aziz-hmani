@@ -1,13 +1,13 @@
-# Soutenance Aziz Hmani
+# Soutenance Amin Fehri
 
-Premium soutenance invitation website for Aziz Hmani - ISSEP Sfax.
+Premium soutenance invitation website for Amin Fehri - ISAMS Sfax.
 
 This project is a mobile-first, elegant, and responsive digital invitation built with Vite, React, and TypeScript.
-It includes a shared memories gallery where guests can upload photos/videos to Cloudinary, while metadata is stored in Supabase so everyone sees the same gallery.
+It includes a shared memories gallery where guests can upload photos to Cloudinary, while metadata is stored in Supabase so everyone sees the same gallery.
 
 ## 1. Project Description
 
-Premium soutenance invitation website for Aziz Hmani - ISSEP Sfax.
+Premium soutenance invitation website for Amin Fehri - ISAMS Sfax.
 
 ## 2. Features
 
@@ -22,7 +22,7 @@ Premium soutenance invitation website for Aziz Hmani - ISSEP Sfax.
 - Web Share API
 - Visitor gate with localStorage name
 - Uploader name on each souvenir
-- Photo/video lightbox preview
+- Photo lightbox preview
 
 ## 3. Install Commands
 
@@ -54,7 +54,7 @@ Notes:
 1. Create a free Cloudinary account.
 2. Open Cloudinary Dashboard > Settings.
 3. Create an unsigned upload preset.
-4. Set folder to `soutenance-aziz-hmani/memories` if needed.
+4. Set the upload folder to match `MEMORY_FOLDER` in `src/services/cloudinaryService.ts` if needed.
 5. Copy your Cloud name.
 6. Put Cloud name and unsigned preset in `.env.local`.
 
@@ -84,7 +84,7 @@ Visitor note:
 
 - Visitor names are stored in browser `localStorage` using key `soutenance_visitor_name`.
 - New uploads are saved in Supabase with `uploader_name`.
-- Older memories created before this migration may display uploader as `invite`.
+- Older memories created before this migration may display uploader as `invité`.
 
 ## 7. Vercel Deployment
 
@@ -119,7 +119,7 @@ Add all required variables:
 
 Update content in these files:
 
-- [`src/components/HeroSection.tsx`](src/components/HeroSection.tsx): institution, main title, student name, speciality, hero message.
+- [`src/components/HeroSection.tsx`](src/components/HeroSection.tsx): institution, main title, student name, event label, hero message.
 - [`src/components/DetailsSection.tsx`](src/components/DetailsSection.tsx): date, time, location cards.
 - [`src/pages/SouvenirsPage.tsx`](src/pages/SouvenirsPage.tsx): invitation message inside the Souvenirs page.
 - [`src/App.tsx`](src/App.tsx): section order and navigation labels.

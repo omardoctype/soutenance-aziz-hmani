@@ -18,16 +18,16 @@ export const HeroInvitation = ({ onExploreMemories }: HeroInvitationProps) => (
 
       <div className="relative z-10">
         <p className="inline-flex rounded-full border border-gold-500/45 bg-gold-500/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-gold-600">
-          Invitation Officielle
+          Invitation officielle
         </p>
 
         <h1 className="mt-4 max-w-3xl font-display text-4xl leading-tight text-navy-900 sm:text-5xl lg:text-6xl">
-          Soutenance de these de Aziz Hmani
+          Projet de fin d&apos;études de Amin Fehri
         </h1>
 
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
-          Votre presence nous honorera lors de cette etape academique
-          importante. Merci de celebrer ce moment avec nous et de partager vos
+          Votre présence nous honorera lors de cette étape académique
+          importante. Merci de célébrer ce moment avec nous et de partager vos
           souvenirs dans la galerie collective.
         </p>
 
@@ -38,7 +38,7 @@ export const HeroInvitation = ({ onExploreMemories }: HeroInvitationProps) => (
               Date
             </p>
             <p className="mt-1 text-sm font-semibold text-navy-900">
-              Samedi 27 Juin 2026
+              2 Juin
             </p>
           </div>
           <div className="rounded-2xl border border-slate-200 bg-mist-50/85 p-4">
@@ -47,7 +47,7 @@ export const HeroInvitation = ({ onExploreMemories }: HeroInvitationProps) => (
               Horaire
             </p>
             <p className="mt-1 text-sm font-semibold text-navy-900">
-              10:00 - 13:00
+              10:30
             </p>
           </div>
           <div className="rounded-2xl border border-slate-200 bg-mist-50/85 p-4">
@@ -56,7 +56,7 @@ export const HeroInvitation = ({ onExploreMemories }: HeroInvitationProps) => (
               Lieu
             </p>
             <p className="mt-1 text-sm font-semibold text-navy-900">
-              Faculte des Sciences
+              2ème étage — Salle 05
             </p>
           </div>
         </div>
@@ -66,7 +66,7 @@ export const HeroInvitation = ({ onExploreMemories }: HeroInvitationProps) => (
           onClick={onExploreMemories}
           className="mt-7 inline-flex items-center justify-center rounded-full bg-navy-900 px-6 py-3 text-sm font-semibold tracking-wide text-white transition-colors hover:bg-navy-800"
         >
-          Partager Un Souvenir
+          Partager un souvenir
         </button>
       </div>
     </motion.div>

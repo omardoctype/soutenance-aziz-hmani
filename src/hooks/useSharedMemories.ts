@@ -195,16 +195,16 @@ export const useSharedMemories = (visitorName: string | null) => {
       if (uploadedCount > 0 && failedUploads.length === 0) {
         setSuccessMessage(
           uploadedCount === 1
-            ? '1 photo partagee avec succes.'
-            : `${uploadedCount} photos partagees avec succes.`,
+            ? '1 photo partagée avec succès.'
+            : `${uploadedCount} photos partagées avec succès.`,
         )
       } else if (uploadedCount > 0 && failedUploads.length > 0) {
         setSuccessMessage(
-          `${uploadedCount} photo(s) partagee(s) avec succes.`,
+          `${uploadedCount} photo(s) partagée(s) avec succès.`,
         )
-        setError(`${failedUploads.length} upload(s) en echec: ${failedUploads.join(' | ')}`)
+        setError(`${failedUploads.length} envoi(s) en échec : ${failedUploads.join(' | ')}`)
       } else {
-        setError(`Echec de l'upload: ${failedUploads.join(' | ')}`)
+        setError(`Échec de l'envoi : ${failedUploads.join(' | ')}`)
       }
 
       setIsUploading(false)
@@ -227,7 +227,7 @@ export const useSharedMemories = (visitorName: string | null) => {
         await loadMemories()
 
         if (isMountedRef.current) {
-          setSuccessMessage('Souvenir supprime avec succes.')
+          setSuccessMessage('Souvenir supprimé avec succès.')
         }
 
         return true

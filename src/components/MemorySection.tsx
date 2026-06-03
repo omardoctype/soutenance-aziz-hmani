@@ -193,11 +193,11 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
               </div>
 
               <h2 className="mt-4 font-display text-3xl leading-tight text-navy-900 sm:text-5xl">
-                Share Your Special Moments
+                Partagez vos moments spéciaux
               </h2>
 
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
-                Upload your favorite photos and share your memories with everyone.
+                Ajoutez vos photos préférées et partagez vos souvenirs avec tout le monde.
               </p>
             </div>
 
@@ -252,7 +252,7 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
                   <p className="text-sm font-semibold text-navy-900">
                     Vous partagez en tant que :{' '}
                     <span className="text-gold-600">
-                      {normalizedVisitorName || 'Invite'}
+                      {normalizedVisitorName || 'invité'}
                     </span>
                   </p>
 
@@ -283,7 +283,7 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
                       className="inline-flex min-h-12 w-full touch-manipulation items-center justify-center gap-2 rounded-full bg-navy-900 px-5 py-3 text-sm font-semibold uppercase tracking-[0.08em] text-white shadow-[0_18px_34px_rgba(16,40,70,0.2)] transition-colors hover:bg-navy-800 disabled:cursor-not-allowed disabled:bg-slate-400"
                     >
                       <Upload className="h-4 w-4" />
-                      {isUploading ? 'UPLOADING...' : 'Choisir depuis la galerie'}
+                      {isUploading ? 'Envoi en cours...' : 'Choisir depuis la galerie'}
                     </button>
 
                     <button
@@ -306,7 +306,7 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
                         />
                       </div>
                       <p className="mt-2 text-xs font-medium text-slate-500">
-                        Upload progress: {uploadProgress}%
+                        Progression de l&apos;envoi : {uploadProgress}%
                       </p>
                     </div>
                   )}
@@ -339,7 +339,7 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
 
               {isRealtimeActive === false && (
                 <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-xs leading-relaxed text-slate-600">
-                  Le mode temps reel est indisponible pour le moment. Utilisez
+                  Le mode temps réel est indisponible pour le moment. Utilisez
                   le bouton Actualiser pour recharger la galerie.
                 </div>
               )}
@@ -361,10 +361,10 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
                     <Images className="h-6 w-6" />
                   </div>
                   <p className="mt-5 font-display text-2xl text-navy-900 sm:text-3xl">
-                    No memories yet
+                    Aucun souvenir pour le moment
                   </p>
                   <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-600">
-                    Be the first guest to share a special photo.
+                    Soyez le premier invité à partager une photo.
                   </p>
                 </div>
               ) : (
@@ -409,7 +409,7 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
               <div>
                 <p className="inline-flex items-center gap-2 rounded-full border border-gold-500/30 bg-gold-500/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-gold-600">
                   <KeyRound className="h-3.5 w-3.5" />
-                  Admin Code
+                  Code administrateur
                 </p>
                 <h3 className="mt-3 font-display text-2xl text-navy-900">
                   Confirmer la suppression
@@ -420,14 +420,14 @@ export const MemorySection = ({ visitorName }: MemorySectionProps) => {
                 type="button"
                 onClick={closeDeleteModal}
                 className="inline-flex h-10 w-10 touch-manipulation items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-700"
-                aria-label="Fermer la fenetre de suppression"
+                aria-label="Fermer la fenêtre de suppression"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
 
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Entrez le code administrateur pour supprimer cet element de la
+              Entrez le code administrateur pour supprimer cet élément de la
               galerie publique.
             </p>
 

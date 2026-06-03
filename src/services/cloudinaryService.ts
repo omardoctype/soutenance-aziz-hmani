@@ -26,7 +26,7 @@ const ensureUploadConstraints = (file: File) => {
   }
 
   if (file.size > IMAGE_MAX_BYTES) {
-    throw new Error('Image file is too large. Maximum allowed size is 10MB.')
+    throw new Error('La photo est trop lourde. La limite maximale est de 10MB.')
   }
 }
 
@@ -35,9 +35,9 @@ const parseCloudinaryError = async (response: Response) => {
     const payload = (await response.json()) as {
       error?: { message?: string }
     }
-    return payload.error?.message ?? 'Cloudinary upload failed.'
+    return payload.error?.message ?? "Échec de l'envoi vers Cloudinary."
   } catch {
-    return 'Cloudinary upload failed.'
+    return "Échec de l'envoi vers Cloudinary."
   }
 }
 
@@ -72,7 +72,7 @@ export const uploadToCloudinary = async (
 ): Promise<CloudinaryUploadResult> => {
   if (!hasCloudinaryConfig) {
     throw new Error(
-      'Cloudinary configuration is missing. Add VITE_CLOUDINARY_CLOUD_NAME and VITE_CLOUDINARY_UPLOAD_PRESET to .env.local.',
+      'La configuration Cloudinary est manquante. Ajoutez VITE_CLOUDINARY_CLOUD_NAME et VITE_CLOUDINARY_UPLOAD_PRESET dans .env.local.',
     )
   }
 
@@ -94,13 +94,13 @@ export const uploadToCloudinary = async (
     })
   } catch {
     throw new Error(
-      'Unable to reach Cloudinary. Please check your connection and try again.',
+      'Impossible de joindre Cloudinary. Vérifiez votre connexion puis réessayez.',
     )
   }
 
   if (!response.ok) {
     const cloudinaryMessage = await parseCloudinaryError(response)
-    throw new Error(`Cloudinary upload failed: ${cloudinaryMessage}`)
+    throw new Error(`Échec de l'envoi vers Cloudinary : ${cloudinaryMessage}`)
   }
 
   return toCloudinaryResult(await response.json())

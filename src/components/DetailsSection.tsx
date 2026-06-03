@@ -11,13 +11,13 @@ const cards = [
   {
     icon: Clock3,
     label: 'Heure',
-    value: '8:30',
+    value: '10:30',
     accent: 'from-navy-900/10 to-white',
   },
   {
     icon: MapPin,
     label: 'Lieu',
-    value: 'Salle Bibliotheque',
+    value: '2ème étage — Salle 05',
     accent: 'from-gold-500/10 to-white',
   },
 ]
@@ -47,21 +47,22 @@ export const DetailsSection = () => (
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/30 bg-gold-500/10 px-4 py-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-gold-600">
               <GraduationCap className="h-4 w-4" />
-              Details
+              Détails
             </div>
 
             <h2 className="mt-4 font-display text-3xl leading-tight text-navy-900 sm:text-5xl">
-              Informations De La Journee
+              Informations de la journée
             </h2>
 
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
-              Votre presence rendra ce moment encore plus special.
+              Votre présence rendra ce moment encore plus spécial à l&apos;Institut
+              Supérieur des Arts et Métiers de Sfax.
             </p>
           </div>
 
           <div className="inline-flex items-center gap-3 self-start rounded-full border border-navy-900/10 bg-navy-900/5 px-4 py-2 text-sm text-navy-900">
             <span className="h-2.5 w-2.5 rounded-full bg-gold-500 shadow-[0_0_18px_rgba(198,167,105,0.7)]" />
-            Soutenance specialite Football
+            Projet de fin d&apos;études
           </div>
         </motion.div>
 

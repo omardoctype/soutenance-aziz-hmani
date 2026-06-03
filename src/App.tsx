@@ -11,7 +11,7 @@ import { SouvenirsPage } from './pages/SouvenirsPage'
 
 const NAV_ITEMS: NavItem[] = [
   { to: '/accueil', label: 'Accueil', icon: Home },
-  { to: '/details', label: 'Details', icon: CalendarDays },
+  { to: '/details', label: 'Détails', icon: CalendarDays },
   { to: '/souvenirs', label: 'Souvenirs', icon: Images },
 ]
 

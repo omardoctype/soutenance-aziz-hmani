@@ -11,7 +11,7 @@ interface MemoryLightboxProps {
 
 const getUploaderLabel = (memory: Memory) => {
   const uploaderName = memory.uploader_name?.trim()
-  return uploaderName && uploaderName.length > 0 ? uploaderName : 'invite'
+  return uploaderName && uploaderName.length > 0 ? uploaderName : 'invité'
 }
 
 export const MemoryLightbox = ({ memory, onClose }: MemoryLightboxProps) => {
@@ -37,7 +37,7 @@ export const MemoryLightbox = ({ memory, onClose }: MemoryLightboxProps) => {
       onClick={onClose}
       aria-modal="true"
       role="dialog"
-      aria-label="Apercu du souvenir"
+      aria-label="Aperçu du souvenir"
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.98, y: 14 }}
@@ -49,7 +49,7 @@ export const MemoryLightbox = ({ memory, onClose }: MemoryLightboxProps) => {
         <div className="flex items-center justify-between gap-2 border-b border-white/10 px-3 py-2.5 sm:px-4 sm:py-3">
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-white">
-              Partage par {getUploaderLabel(memory)}
+              Partagé par {getUploaderLabel(memory)}
             </p>
             <p className="truncate text-xs text-slate-200/85">
               {formatMemoryDate(memory.created_at)}
@@ -59,7 +59,7 @@ export const MemoryLightbox = ({ memory, onClose }: MemoryLightboxProps) => {
           <button
             type="button"
             onClick={onClose}
-            aria-label="Fermer l'apercu"
+            aria-label="Fermer l'aperçu"
             className="inline-flex h-10 w-10 touch-manipulation items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20"
           >
             <X className="h-4 w-4" />
@@ -77,13 +77,13 @@ export const MemoryLightbox = ({ memory, onClose }: MemoryLightboxProps) => {
               />
               <div className="pointer-events-none absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/50 px-2.5 py-1 text-xs font-semibold text-white">
                 <Play className="h-3.5 w-3.5 fill-current" />
-                Video
+                Vidéo
               </div>
             </div>
           ) : (
             <img
               src={memory.secure_url}
-              alt={memory.original_filename ?? 'Souvenir partage'}
+              alt={memory.original_filename ?? 'Souvenir partagé'}
               className="mx-auto max-h-[70vh] w-auto max-w-full rounded-xl border border-white/10 bg-black object-contain"
             />
           )}
