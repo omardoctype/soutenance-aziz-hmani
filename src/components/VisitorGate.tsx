@@ -37,7 +37,7 @@ export const VisitorGate = ({ onSubmitName }: VisitorGateProps) => {
         className="w-[calc(100%-12px)] max-w-md rounded-[1.9rem] border border-slate-200/75 bg-white/96 p-5 shadow-[0_28px_70px_rgba(7,27,58,0.15)] sm:p-6"
       >
         <h1 className="font-display text-[clamp(1.7rem,7vw,2.4rem)] leading-tight text-navy-900">
-          Bienvenue à la soutenance de Amin Fehri
+          Bienvenue à la soutenance de Fatma Fehri
         </h1>
 
         <form

@@ -1,13 +1,13 @@
-# Soutenance Amin Fehri
+# Soutenance Fatma Fehri
 
-Premium soutenance invitation website for Amin Fehri - ISAMS Sfax.
+Premium soutenance invitation website for Fatma Fehri - International School of Business.
 
 This project is a mobile-first, elegant, and responsive digital invitation built with Vite, React, and TypeScript.
 It includes a shared memories gallery where guests can upload photos to Cloudinary, while metadata is stored in Supabase so everyone sees the same gallery.
 
 ## 1. Project Description
 
-Premium soutenance invitation website for Amin Fehri - ISAMS Sfax.
+Premium soutenance invitation website for Fatma Fehri - International School of Business.
 
 ## 2. Features
 

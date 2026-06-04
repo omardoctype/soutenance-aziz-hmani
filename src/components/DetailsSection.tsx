@@ -5,19 +5,19 @@ const cards = [
   {
     icon: CalendarDays,
     label: 'Date',
-    value: '3 Juin',
+    value: '04/06/2026',
     accent: 'from-gold-500/16 to-white',
   },
   {
     icon: Clock3,
     label: 'Heure',
-    value: '10:30',
+    value: '15:30',
     accent: 'from-navy-900/10 to-white',
   },
   {
     icon: MapPin,
     label: 'Lieu',
-    value: '2ème étage — Salle 05',
+    value: 'International School of Business',
     accent: 'from-gold-500/10 to-white',
   },
 ]
@@ -55,8 +55,8 @@ export const DetailsSection = () => (
             </h2>
 
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
-              Votre présence rendra ce moment encore plus spécial à l&apos;Institut
-              Supérieur des Arts et Métiers de Sfax.
+              Votre présence rendra ce moment encore plus spécial à
+              International School of Business.
             </p>
           </div>
 
