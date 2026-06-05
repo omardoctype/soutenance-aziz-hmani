@@ -5,13 +5,13 @@ const cards = [
   {
     icon: CalendarDays,
     label: 'Date',
-    value: '04/06/2026',
+    value: '05-06-2026',
     accent: 'from-gold-500/16 to-white',
   },
   {
     icon: Clock3,
     label: 'Heure',
-    value: '15:30',
+    value: '14:00',
     accent: 'from-navy-900/10 to-white',
   },
   {

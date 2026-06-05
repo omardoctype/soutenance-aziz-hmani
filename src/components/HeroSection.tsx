@@ -45,7 +45,7 @@ export const HeroSection = ({
             </h1>
 
             <p className="mx-auto mt-4 max-w-full text-center font-script text-[clamp(2.2rem,10.4vw,4.2rem)] leading-[1] text-gold-600">
-              Fatma Fehri
+              Wiem Zouaoui
             </p>
 
             <p className="mx-auto mt-4 inline-flex max-w-full items-center justify-center rounded-full border border-gold-500/35 bg-white/80 px-3.5 py-2 text-center text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-navy-900 sm:px-4 sm:tracking-[0.18em]">
@@ -86,7 +86,7 @@ export const HeroSection = ({
               <div className="overflow-hidden rounded-[1.5rem] border border-white/80 bg-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.7)]">
                 <img
                   src={posterImage}
-                  alt="Affiche officielle de la soutenance Fatma Fehri"
+                  alt="Affiche officielle de la soutenance Wiem Zouaoui"
                   className="aspect-[10/16] w-full object-contain bg-[#f8fafc]"
                   loading="eager"
                 />

@@ -22,13 +22,13 @@ export const HeroInvitation = ({ onExploreMemories }: HeroInvitationProps) => (
         </p>
 
         <h1 className="mt-4 max-w-3xl font-display text-4xl leading-tight text-navy-900 sm:text-5xl lg:text-6xl">
-          Projet de fin d&apos;études de Fatma Fehri
+          Projet de fin d&apos;études de Wiem Zouaoui
         </h1>
 
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">
-          Votre présence nous honorera lors de cette étape académique
-          importante. Merci de célébrer ce moment avec nous et de partager vos
-          souvenirs dans la galerie collective.
+          Vous êtes invité à la soutenance de Wiem Zouaoui à International
+          School of Business. Merci de célébrer ce moment avec nous et de
+          partager vos souvenirs dans la galerie collective.
         </p>
 
         <div className="mt-6 grid gap-3 sm:grid-cols-3">
@@ -38,7 +38,7 @@ export const HeroInvitation = ({ onExploreMemories }: HeroInvitationProps) => (
               Date
             </p>
             <p className="mt-1 text-sm font-semibold text-navy-900">
-              04/06/2026
+              05-06-2026
             </p>
           </div>
           <div className="rounded-2xl border border-slate-200 bg-mist-50/85 p-4">
@@ -47,7 +47,7 @@ export const HeroInvitation = ({ onExploreMemories }: HeroInvitationProps) => (
               Horaire
             </p>
             <p className="mt-1 text-sm font-semibold text-navy-900">
-              15:30
+              14:00
             </p>
           </div>
           <div className="rounded-2xl border border-slate-200 bg-mist-50/85 p-4">

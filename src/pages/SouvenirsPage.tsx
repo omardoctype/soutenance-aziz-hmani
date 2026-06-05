@@ -18,7 +18,7 @@ export const SouvenirsPage = ({ visitorName }: SouvenirsPageProps) => (
       </p>
 
       <p className="mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 sm:text-sm">
-        Soutenance Fatma Fehri - International School of Business
+        Soutenance Wiem Zouaoui - International School of Business
       </p>
     </section>
 

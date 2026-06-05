@@ -12,14 +12,14 @@ export const ProfileHeader = ({ visitorName }: ProfileHeaderProps) => (
     <div className="flex items-center gap-3">
       <img
         src={profileImage}
-        alt="Soutenance Fatma Fehri"
+        alt="Soutenance Wiem Zouaoui"
         className="h-12 w-12 shrink-0 rounded-full border-2 border-gold-500/70 object-cover shadow-[0_8px_22px_rgba(16,40,70,0.18)]"
         loading="lazy"
       />
 
       <div className="min-w-0">
         <p className="truncate text-sm font-semibold text-navy-900">
-          Soutenance Fatma Fehri
+          Soutenance Wiem Zouaoui
         </p>
         <p className="truncate text-xs text-slate-600">
           Bienvenue, {visitorName}

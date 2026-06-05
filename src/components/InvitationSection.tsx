@@ -28,7 +28,7 @@ export const InvitationSection = () => (
 
           <div className="mt-6 flex items-center justify-center gap-2 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-slate-500">
             <Trophy className="h-4 w-4 text-gold-600" />
-            Soutenance Fatma Fehri - International School of Business
+            Soutenance Wiem Zouaoui - International School of Business
           </div>
         </motion.div>
       </div>
